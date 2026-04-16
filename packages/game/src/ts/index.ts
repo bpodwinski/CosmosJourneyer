@@ -27,6 +27,8 @@ import { alertModal } from "@/frontend/ui/dialogModal";
 import { decodeBase64 } from "@/utils/base64";
 import { jsonSafeParse } from "@/utils/json";
 
+import i18n from "@/i18n";
+
 import { createConsoleDumper } from "./utils/console";
 import { downloadTextFile } from "./utils/download";
 
@@ -41,14 +43,14 @@ async function initWithSaveString(engine: CosmosJourneyer, saveString: string) {
     const json = jsonSafeParse(jsonString);
     if (json === null) {
         console.error(jsonString);
-        await alertModal("Error, this save file is not a valid json.", soundPlayerMock);
+        await alertModal(i18n.t("notifications:invalidSaveFileJson"), soundPlayerMock);
         await simpleInit(engine);
         return;
     }
 
     const result = safeParseSave(json, engine.backend.universe);
     if (!result.success) {
-        await alertModal("Error, this save file is invalid. See the console for more details.", soundPlayerMock);
+        await alertModal(i18n.t("notifications:invalidSaveFile"), soundPlayerMock);
         await simpleInit(engine);
         return;
     }
@@ -94,10 +96,5 @@ try {
     }
 
     downloadTextFile(crashLog, "crashLog.txt");
-    await alertModal(
-        `An unexpected error has occurred!<br><br>
-        The crash log has been downloaded to your computer, please go to <a href="https://github.com/BarthPaleologue/CosmosJourneyer/issues">the issue tracker</a> and open a new bug issue with the crash log attached.
-        If you don't have a GitHub account, you can send an email to barth.paleologue@cosmosjourneyer.com instead.`,
-        soundPlayerMock,
-    );
+    await alertModal(i18n.t("notifications:unexpectedCrashHelp"), soundPlayerMock);
 }

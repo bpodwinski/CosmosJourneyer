@@ -311,7 +311,7 @@ export class CosmosJourneyer {
                 save.player.uuid = Settings.SHARED_POSITION_SAVE_UUID;
                 const url = createUrlFromSave(save);
                 if (url === null) {
-                    await alertModal("Could not create a shareable link.", this.soundPlayer);
+                    await alertModal(i18n.t("notifications:shareLinkCreationFailed"), this.soundPlayer);
                     return;
                 }
 
@@ -609,7 +609,7 @@ export class CosmosJourneyer {
     public async takeScreenshot(): Promise<boolean> {
         const camera = this.activeView.getMainScene().activeCamera;
         if (camera === null) {
-            await alertModal("Cannot take screenshot: camera is null", this.soundPlayer);
+            await alertModal(i18n.t("notifications:screenshotCameraMissing"), this.soundPlayer);
             return false;
         }
 
@@ -800,12 +800,7 @@ export class CosmosJourneyer {
             const saveResult = tutorial.getSaveData(this.backend.universe);
             if (!saveResult.success) {
                 console.error(saveResult.error);
-                await alertModal(
-                    i18n.t(
-                        "The tutorial save has errors and could not be loaded! Check the console for more information.",
-                    ),
-                    this.soundPlayer,
-                );
+                await alertModal(i18n.t("notifications:tutorialSaveLoadFailed"), this.soundPlayer);
                 return;
             }
 
@@ -847,18 +842,12 @@ export class CosmosJourneyer {
         } else {
             const shipLocation = saveData.shipLocations[playerLocation.shipId];
             if (shipLocation === undefined) {
-                await alertModal(
-                    "Player is in spaceship, but said spaceship does not exist. The loading procedure has been aborted.",
-                    this.soundPlayer,
-                );
+                await alertModal(i18n.t("notifications:missingShipForPlayerLocation"), this.soundPlayer);
                 return;
             }
 
             if (shipLocation.type === "inSpaceship") {
-                await alertModal(
-                    "Spaceship inside spaceships is not yet supported. The loading procedure has been aborted.",
-                    this.soundPlayer,
-                );
+                await alertModal(i18n.t("notifications:nestedSpaceshipNotSupported"), this.soundPlayer);
                 return;
             }
 
@@ -870,10 +859,7 @@ export class CosmosJourneyer {
         );
 
         if (systemModel === null) {
-            await alertModal(
-                "Cannot load universe coordinates: system model not found. The loading procedure has been aborted.",
-                this.soundPlayer,
-            );
+            await alertModal(i18n.t("notifications:systemModelNotFoundForLocation"), this.soundPlayer);
             return;
         }
 
@@ -937,10 +923,7 @@ export class CosmosJourneyer {
                 playerTransform,
             );
 
-            await alertModal(
-                "The object you are trying to spawn near to could not be found. You will spawn around the first stellar object of the system instead.",
-                this.soundPlayer,
-            );
+            await alertModal(i18n.t("notifications:spawnObjectNotFoundFallback"), this.soundPlayer);
 
             return;
         }
@@ -995,10 +978,7 @@ export class CosmosJourneyer {
                 playerTransform,
             );
 
-            await alertModal(
-                "The space station you are trying to spawn at could not be found. You will spawn around the first stellar object of the system instead.",
-                this.soundPlayer,
-            );
+            await alertModal(i18n.t("notifications:spawnStationNotFoundFallback"), this.soundPlayer);
 
             return;
         }
@@ -1014,10 +994,7 @@ export class CosmosJourneyer {
                 playerTransform,
             );
 
-            await alertModal(
-                "There are no available pads at the space station you are trying to spawn at. You have been moved outside of the station instead.",
-                this.soundPlayer,
-            );
+            await alertModal(i18n.t("notifications:noLandingPadsFallback"), this.soundPlayer);
 
             return;
         }

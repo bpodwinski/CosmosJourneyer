@@ -1,5 +1,7 @@
 {
     "loadSave": "Load a save",
+    "autoSavePrefix": "[Auto] ",
+    "saveThumbnailAlt": "Save thumbnail",
     "dropASaveFileHere": "Drop a save file here",
     "lastPlayedOn": "Last explored on {{val, datetime}}",
     "journeyedFor": "Journeyed for {{nbHours}} hours",

@@ -8,5 +8,12 @@
     "searchForADiscovery": "Search for a discovery",
     "noDiscoveryTitle": "No new discoveries",
     "noDiscoveryText": "The universe awaits!",
-    "detailsPlaceholder": "Select a discovery to see more details."
+    "detailsPlaceholder": "Select a discovery to see more details.",
+    "connectToEncyclopaediaInstance": "Connect to an instance of the Encyclopaedia",
+    "connect": "Connect",
+    "accountIdPlaceholder": "accountId",
+    "passwordPlaceholder": "password",
+    "systemNotFoundForDiscovery": "System could not be found for the discovery. More information in the console.",
+    "objectNotFoundForDiscovery": "Object could not be found for the discovery. More information in the console.",
+    "sellingPriceEstimateFailed": "Could not estimate the selling price. More information in the console."
 }

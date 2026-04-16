@@ -1,4 +1,5 @@
 {
+    "title": "Tutoriel",
     "moreWillComeSoon": "Plus de tutoriels dans le futur !",
     "navigationInfo": "<p>Pour avancer dans le tutoriel, appuyez sur {{nextKeys}}. Vous pouvez revenir aux étapes précédentes avec {{previousKeys}}.</p>",
     "quit": "Quitter",

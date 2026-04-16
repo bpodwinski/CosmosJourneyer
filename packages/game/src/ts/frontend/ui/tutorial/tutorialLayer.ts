@@ -46,7 +46,7 @@ export class TutorialLayer implements IDisposable {
         this.panel.classList.add("hidden");
 
         this.title = document.createElement("h1");
-        this.title.innerText = "Tutorial";
+        this.title.innerText = i18n.t("tutorials:common:title");
         this.panel.appendChild(this.title);
 
         this.contentContainer = document.createElement("div");

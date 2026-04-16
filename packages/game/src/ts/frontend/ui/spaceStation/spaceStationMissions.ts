@@ -30,6 +30,8 @@ import { getRngFromSeed } from "@/utils/getRngFromSeed";
 import { parseDistance } from "@/utils/strings/parseToStrings";
 import { type DeepReadonly } from "@/utils/types";
 
+import i18n from "@/i18n";
+
 import { MissionContainer } from "./missionContainer";
 
 /**
@@ -88,11 +90,11 @@ export function generateMissionsDom(
     const htmlRoot = document.createElement("div");
 
     const missionH2 = document.createElement("h2");
-    missionH2.innerText = "Missions";
+    missionH2.innerText = i18n.t("spaceStation:missions");
     htmlRoot.appendChild(missionH2);
 
     const explorationMissionH3 = document.createElement("h3");
-    explorationMissionH3.innerText = "Exploration";
+    explorationMissionH3.innerText = i18n.t("spaceStation:explorationCategory");
     htmlRoot.appendChild(explorationMissionH3);
 
     const missionList = document.createElement("div");
@@ -105,11 +107,11 @@ export function generateMissionsDom(
     });
 
     const terraformationMissionH3 = document.createElement("h3");
-    terraformationMissionH3.innerText = "Terraformation";
+    terraformationMissionH3.innerText = i18n.t("spaceStation:terraformationCategory");
     htmlRoot.appendChild(terraformationMissionH3);
 
     const tradingMissionH3 = document.createElement("h3");
-    tradingMissionH3.innerText = "Trading";
+    tradingMissionH3.innerText = i18n.t("spaceStation:tradingCategory");
     htmlRoot.appendChild(tradingMissionH3);
 
     contactStations.forEach(({ model: station, distance }) => {

@@ -30,7 +30,7 @@ import { alertModal } from "@/frontend/ui/dialogModal";
 import { NotificationManagerMock } from "@/frontend/ui/notificationManager";
 import { SaveLoadingPanelContent } from "@/frontend/ui/saveLoadingPanelContent";
 
-import { initI18n } from "@/i18n";
+import i18n, { initI18n } from "@/i18n";
 
 export async function createSaveLoadingPanelContentScene(
     engine: AbstractEngine,
@@ -59,7 +59,7 @@ export async function createSaveLoadingPanelContentScene(
         universeBackend,
     );
     if (!saveManager.success) {
-        await alertModal("Could not load saves", soundPlayer);
+        await alertModal(i18n.t("notifications:failedToParseSaves"), soundPlayer);
         return scene;
     }
 

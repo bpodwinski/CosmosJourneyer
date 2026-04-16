@@ -308,7 +308,7 @@ export class SpaceStationLayer {
         }
 
         if (this.currentStation === null) {
-            await alertModal("No current station", this.soundPlayer);
+            await alertModal(i18n.t("spaceStation:noCurrentStation"), this.soundPlayer);
             return;
         }
 
@@ -369,11 +369,13 @@ export class SpaceStationLayer {
     }
 
     private updatePlayerName(name: string) {
-        this.playerName.textContent = `CMDR ${name}`;
+        this.playerName.textContent = i18n.t("spaceStation:commanderName", { name });
     }
 
     private updatePlayerBalance(balance: number) {
-        this.playerBalance.textContent = `Balance: ${Settings.CREDIT_SYMBOL}${balance.toLocaleString()}`;
+        this.playerBalance.textContent = i18n.t("spaceStation:balance", {
+            balance: `${Settings.CREDIT_SYMBOL}${balance.toLocaleString()}`,
+        });
     }
 
     public reset() {

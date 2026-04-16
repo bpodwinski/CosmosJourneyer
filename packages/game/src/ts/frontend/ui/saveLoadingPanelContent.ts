@@ -83,7 +83,7 @@ export class SaveLoadingPanelContent {
 
             const file = event.dataTransfer.files[0];
             if (file === undefined) {
-                await alertModal("No file dropped", this.soundPlayer);
+                await alertModal(i18n.t("notifications:noFileDropped"), this.soundPlayer);
                 return;
             }
 
@@ -98,7 +98,7 @@ export class SaveLoadingPanelContent {
             fileInput.onchange = async () => {
                 const file = fileInput.files?.[0];
                 if (file === undefined) {
-                    await alertModal("No file selected", this.soundPlayer);
+                    await alertModal(i18n.t("notifications:noFileSelected"), this.soundPlayer);
                     return;
                 }
 
@@ -215,7 +215,7 @@ export class SaveLoadingPanelContent {
                 this.soundPlayer.playNow("click");
                 const url = createUrlFromSave(latestSave);
                 if (url === null) {
-                    await alertModal("Could not create a URL from the save file.", this.soundPlayer);
+                    await alertModal(i18n.t("notifications:saveUrlCreationFailed"), this.soundPlayer);
                     return;
                 }
                 await navigator.clipboard.writeText(url.toString()).then(() => {
@@ -277,7 +277,8 @@ export class SaveLoadingPanelContent {
         saveDiv.appendChild(saveText);
 
         const saveName = document.createElement("p");
-        saveName.innerText = (isAutoSave ? `[Auto] ` : "") + new Date(save.timestamp).toLocaleString();
+        saveName.innerText =
+            (isAutoSave ? i18n.t("sidePanel:autoSavePrefix") : "") + new Date(save.timestamp).toLocaleString();
         saveText.appendChild(saveName);
 
         const saveLocation = document.createElement("p");
@@ -317,7 +318,7 @@ export class SaveLoadingPanelContent {
 
             const thumbnailImg = document.createElement("img");
             thumbnailImg.src = save.thumbnail;
-            thumbnailImg.alt = "Save thumbnail";
+            thumbnailImg.alt = i18n.t("sidePanel:saveThumbnailAlt");
             thumbnailContainer.appendChild(thumbnailImg);
 
             saveContent.appendChild(thumbnailContainer);
@@ -345,7 +346,7 @@ export class SaveLoadingPanelContent {
             this.soundPlayer.playNow("click");
             const url = createUrlFromSave(save);
             if (url === null) {
-                await alertModal("Could not create a URL from the save file.", this.soundPlayer);
+                await alertModal(i18n.t("notifications:saveUrlCreationFailed"), this.soundPlayer);
                 return;
             }
             await navigator.clipboard.writeText(url.toString()).then(() => {

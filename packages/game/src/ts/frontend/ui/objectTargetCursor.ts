@@ -25,6 +25,8 @@ import { smoothstep } from "@/utils/math";
 import { parseDistance, parseSecondsRough } from "@/utils/strings/parseToStrings";
 import { assertUnreachable } from "@/utils/types";
 
+import i18n from "@/i18n";
+
 import { type HasBoundingSphere } from "../universe/architecture/hasBoundingSphere";
 import { ObjectTargetCursorType, type Targetable } from "../universe/architecture/targetable";
 import { type Transformable } from "../universe/architecture/transformable";
@@ -119,7 +121,7 @@ export class ObjectTargetCursor {
 
         this.etaText = document.createElement("p");
         this.etaText.classList.add("targetCursorEta");
-        this.etaText.textContent = "∞";
+        this.etaText.textContent = i18n.t("common:infinity");
 
         document.body.appendChild(this.htmlRoot);
 
@@ -201,7 +203,9 @@ export class ObjectTargetCursor {
             this.distanceText.textContent = parseDistance(distance);
 
             const nbSeconds = distance / speed;
-            this.etaText.textContent = "ETA: " + (speed > 0 ? parseSecondsRough(nbSeconds) : "∞");
+            this.etaText.textContent = `${i18n.t("common:eta")}: ${
+                speed > 0 ? parseSecondsRough(nbSeconds) : i18n.t("common:infinity")
+            }`;
         }
 
         this.lastDistance = distance;

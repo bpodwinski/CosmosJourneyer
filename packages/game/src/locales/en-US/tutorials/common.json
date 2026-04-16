@@ -1,4 +1,5 @@
 {
+    "title": "Tutorial",
     "moreWillComeSoon": "More tutorials will come in the future!",
     "navigationInfo": "<p>To move forward in the tutorial, simply press {{nextKeys}}. You can go back to the previous panel by pressing {{previousKeys}}.</p>",
     "quit": "Quit",

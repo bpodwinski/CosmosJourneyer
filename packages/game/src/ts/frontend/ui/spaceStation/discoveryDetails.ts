@@ -92,7 +92,7 @@ export class DiscoveryDetails {
         this.orbitRadius = document.createElement("p");
 
         this.sellDiscoveryButton = document.createElement("button");
-        this.sellDiscoveryButton.textContent = "Sell";
+        this.sellDiscoveryButton.textContent = i18n.t("common:sell");
         this.sellDiscoveryButton.addEventListener("click", async () => {
             if (this.currentDiscovery === null) {
                 throw new Error("The sell button should not be displayed when currentDiscovery is null");
@@ -132,10 +132,7 @@ export class DiscoveryDetails {
 
         if (systemModel === null) {
             console.error(discovery);
-            await alertModal(
-                "System could not be found for the discovery. More information in the console.",
-                this.soundPlayer,
-            );
+            await alertModal(i18n.t("explorationCenter:systemNotFoundForDiscovery"), this.soundPlayer);
             return;
         }
 
@@ -146,10 +143,7 @@ export class DiscoveryDetails {
 
         if (objectModel === null) {
             console.error(discovery);
-            await alertModal(
-                "Object could not be found for the discovery. More information in the console.",
-                this.soundPlayer,
-            );
+            await alertModal(i18n.t("explorationCenter:objectNotFoundForDiscovery"), this.soundPlayer);
             return;
         }
 
@@ -188,10 +182,7 @@ export class DiscoveryDetails {
                 });
             } else {
                 console.error(sellingPrice.error);
-                await alertModal(
-                    "Could not estimate the selling price. More information in the console.",
-                    this.soundPlayer,
-                );
+                await alertModal(i18n.t("explorationCenter:sellingPriceEstimateFailed"), this.soundPlayer);
             }
         }
     }

@@ -164,11 +164,10 @@ export class ShipControls implements Controls {
                             SpaceShipControlsInputs.map.emitLandingRequest,
                             keyboardLayoutMap,
                         ).join(", ");
-                        //FIXME: localize
                         this.notificationManager.create(
                             "space-station",
                             "info",
-                            `Don't forget to send a landing request with ${bindingsString} before approaching the facility`,
+                            i18n.t("notifications:landingReminder", { bindingsString }),
                             5000,
                         );
                     }
@@ -190,7 +189,9 @@ export class ShipControls implements Controls {
                 this.notificationManager.create(
                     "spaceship",
                     "error",
-                    `Cannot land while warp drive is enabled. You can use ${relevantKeys.join(", ")} to toggle your warp drive.`,
+                    i18n.t("notifications:cannotLandWarpDriveEnabled", {
+                        bindingsString: relevantKeys.join(", "),
+                    }),
                     5000,
                 );
                 return;
@@ -206,7 +207,7 @@ export class ShipControls implements Controls {
 
             // If the object is too far, don't engage landing
             if (distance > closestWalkableObject.getBoundingRadius() + 100e3) {
-                this.notificationManager.create("spaceship", "error", "Too high to land", 2000);
+                this.notificationManager.create("spaceship", "error", i18n.t("notifications:tooHighToLand"), 2000);
                 return;
             }
 
@@ -223,7 +224,12 @@ export class ShipControls implements Controls {
                 minimumPadSize: LandingPadSize.SMALL,
             });
             if (landingPad === null) {
-                this.notificationManager.create("space-station", "error", "Landing request rejected", 2000);
+                this.notificationManager.create(
+                    "space-station",
+                    "error",
+                    i18n.t("notifications:landingRequestRejected"),
+                    2000,
+                );
                 return;
             }
 
@@ -231,7 +237,9 @@ export class ShipControls implements Controls {
             this.notificationManager.create(
                 "space-station",
                 "success",
-                `Landing request granted. Proceed to ${landingPad.getTransform().name}`,
+                i18n.t("notifications:landingRequestGranted", {
+                    landingPadName: landingPad.getTransform().name,
+                }),
                 30000,
             );
             spaceship.engageLandingOnPad(landingPad);

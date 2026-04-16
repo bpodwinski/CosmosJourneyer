@@ -33,7 +33,7 @@ export function connectEncyclopaediaGalacticaModal(soundPlayer: ISoundPlayer): P
     modal.appendChild(form);
 
     const description = document.createElement("p");
-    description.textContent = "Connect to an instance of the Encyclopaedia";
+    description.textContent = i18n.t("explorationCenter:connectToEncyclopaediaInstance");
     form.appendChild(description);
 
     const urlInput = document.createElement("input");
@@ -44,12 +44,12 @@ export function connectEncyclopaediaGalacticaModal(soundPlayer: ISoundPlayer): P
 
     const accountIdInput = document.createElement("input");
     accountIdInput.type = "text";
-    accountIdInput.placeholder = "accountId";
+    accountIdInput.placeholder = i18n.t("explorationCenter:accountIdPlaceholder");
     form.appendChild(accountIdInput);
 
     const passwordInput = document.createElement("input");
     passwordInput.type = "password";
-    passwordInput.placeholder = "password";
+    passwordInput.placeholder = i18n.t("explorationCenter:passwordPlaceholder");
     form.appendChild(passwordInput);
 
     const menu = document.createElement("menu");
@@ -64,7 +64,7 @@ export function connectEncyclopaediaGalacticaModal(soundPlayer: ISoundPlayer): P
     const connectButton = document.createElement("button");
     connectButton.type = "submit";
     connectButton.value = "connect";
-    connectButton.textContent = "Connect";
+    connectButton.textContent = i18n.t("explorationCenter:connect");
     menu.appendChild(connectButton);
 
     modal.showModal();

@@ -1,5 +1,7 @@
 {
     "loadSave": "Charger une sauvegarde",
+    "autoSavePrefix": "[Auto] ",
+    "saveThumbnailAlt": "Miniature de sauvegarde",
     "dropASaveFileHere": "Déposez un fichier de sauvegarde ici",
     "lastPlayedOn": "Dernière exploration le {{val, datetime}}",
     "journeyedFor": "Exploré pendant {{nbHours}} heures",
@@ -26,7 +28,9 @@
     "materials": "Matériaux",
     "icons": "Icônes",
     "font": "Police",
+    "audioSettings": "Parametres audio",
     "music": "Musique",
+    "musicVolume": "Volume de la musique",
     "soundEffects": "Effets sonores",
     "specialThanks": "Remerciements",
     "about": "À propos",

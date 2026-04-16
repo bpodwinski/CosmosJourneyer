@@ -5,8 +5,11 @@
     "and": "et",
     "sellFor": "Vendre pour {{price}}",
     "sellAllFor": "Vendre tout pour {{price}}",
+    "sell": "Vendre",
     "unknown": "Inconnu",
     "cancel": "Annuler",
     "confirm": "Confirmer",
-    "ok": "OK"
+    "ok": "OK",
+    "eta": "ETA",
+    "infinity": "∞"
 }

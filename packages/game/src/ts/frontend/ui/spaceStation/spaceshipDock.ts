@@ -67,7 +67,10 @@ export class SpaceshipDockUI {
             this.currentSpaceshipContainer.appendChild(fuelManagementContainer);
 
             const fuelText = document.createElement("p");
-            fuelText.innerText = `Fuel: ${currentSpaceship.getRemainingFuel().toFixed(0)} / ${currentSpaceship.getTotalFuelCapacity()}`;
+            fuelText.innerText = i18n.t("spaceStation:fuelStatus", {
+                current: currentSpaceship.getRemainingFuel().toFixed(0),
+                max: currentSpaceship.getTotalFuelCapacity(),
+            });
             fuelManagementContainer.appendChild(fuelText);
 
             const outfittingButton = document.createElement("button");
@@ -97,7 +100,10 @@ export class SpaceshipDockUI {
                 const fuelUnitPrice = 10;
                 player.pay(Math.round(fuelAmount * fuelUnitPrice));
                 currentSpaceship.refuel(fuelAmount);
-                fuelText.innerText = `Fuel: ${currentSpaceship.getRemainingFuel()} / ${currentSpaceship.getTotalFuelCapacity()}`;
+                fuelText.innerText = i18n.t("spaceStation:fuelStatus", {
+                    current: currentSpaceship.getRemainingFuel().toFixed(0),
+                    max: currentSpaceship.getTotalFuelCapacity(),
+                });
             });
             fuelManagementContainer.appendChild(refuelButton);
         } else {
@@ -121,7 +127,7 @@ export class SpaceshipDockUI {
             spaceshipContainer.appendChild(spaceshipName);
 
             const switchSpaceshipButton = document.createElement("button");
-            switchSpaceshipButton.innerText = "Switch to this spaceship";
+            switchSpaceshipButton.innerText = i18n.t("spaceStation:switchToThisSpaceship");
             switchSpaceshipButton.addEventListener("click", () => {
                 throw new Error("Not implemented");
             });

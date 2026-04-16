@@ -48,6 +48,8 @@ import { type View } from "@/frontend/view";
 
 import { type DeepReadonly } from "@/utils/types";
 
+import i18n from "@/i18n";
+
 import { type StarMapTextures } from "../assets/textures/starMap";
 import { type INotificationManager } from "../ui/notificationManager";
 import { StarMap } from "./starMap";
@@ -154,27 +156,24 @@ export class StarMapView implements View {
 
         this.starMapUI.shortHandUIPlotItineraryButton.addEventListener("click", async () => {
             if (this.currentSystemCoordinates === null) {
-                await alertModal("current system seed is null!", this.soundPlayer);
+                await alertModal(i18n.t("notifications:starMapCurrentSystemMissing"), this.soundPlayer);
                 return;
             }
             if (this.selectedSystemCoordinates === null) {
-                await alertModal("selected system seed is null!", this.soundPlayer);
+                await alertModal(i18n.t("notifications:starMapSelectedSystemMissing"), this.soundPlayer);
                 return;
             }
 
             const playerCurrentSpaceship = this.player.instancedSpaceships.at(0);
             if (playerCurrentSpaceship === undefined) {
-                await alertModal("You do not own a spaceship! What have you done???", this.soundPlayer);
+                await alertModal(i18n.t("notifications:noOwnedSpaceship"), this.soundPlayer);
                 return;
             }
 
             const warpDrive = playerCurrentSpaceship.getInternals().getWarpDrive();
 
             if (warpDrive === null) {
-                await alertModal(
-                    "Your current spaceship has no warp drive! Install a warp drive to plot an itinerary.",
-                    this.soundPlayer,
-                );
+                await alertModal(i18n.t("notifications:noWarpDriveInstalled"), this.soundPlayer);
                 return;
             }
 
@@ -244,7 +243,9 @@ export class StarMapView implements View {
                         this.notificationManager.create(
                             "general",
                             "error",
-                            `Failed to parse itinerary: ${parsedItinerary.error.message}`,
+                            i18n.t("notifications:failedToParseItinerary", {
+                                error: parsedItinerary.error.message,
+                            }),
                             5000,
                         );
                         this.player.currentItinerary = null;
@@ -259,7 +260,9 @@ export class StarMapView implements View {
                     this.notificationManager.create(
                         "general",
                         "error",
-                        `Could not find a path to the target system after ${pathfinderMaxIterations} iterations`,
+                        i18n.t("notifications:pathNotFoundToTarget", {
+                            iterations: pathfinderMaxIterations,
+                        }),
                         5000,
                     );
                 }
