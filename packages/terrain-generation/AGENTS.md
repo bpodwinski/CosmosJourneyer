@@ -83,6 +83,52 @@ the Rust/WASM output intentionally changes.
 Add or update Rust tests under `tests/` for geometry, buffer sizes, deterministic output, terrain layers, noise, and
 skirt behavior. Manual visualization tests should remain ignored unless the user explicitly asks to run them.
 
+## CDLOD Pipeline — Internal Architecture
+
+`build_chunk_vertex_data` (`src/lib.rs`) is the single hot entry point. Its internal steps in order:
+
+1. **Cube-sphere mapping** — each chunk is defined by a face direction (`Direction`), a cube-space XY position, and a
+   depth. Vertices are placed on the cube face, then projected onto the sphere surface by normalizing to
+   `planet_radius`. The sphere deformation is baked at generation time; the mesh is already curved when it reaches
+   Babylon.js.
+
+2. **Vertex recentering** — every vertex position is stored relative to the chunk's sphere-space center, not the
+   planet origin. This is intentional to preserve floating-point precision at large radii. Do not remove this offset
+   without verifying the game-side floating origin pipeline (`StarSystemController`) handles the change.
+
+3. **Terrain function** (`src/landscape/make_terrain_function.rs`) — composed of layered Simplex-4D noise (3D spatial
+    - 1D seed). The layers are applied in order:
+    * **Continent mask** (8-octave FBM): shapes landmasses, ranges `[0, 1]`
+    * **Mountain layer** (`src/landscape/mountain_layer.rs`): applied only where continent mask > 0.5
+    * **Mountain mask** (1-octave Simplex): spatially modulates mountain coverage
+    * Each layer returns both value and analytical gradient. The gradient is used to compute normals analytically
+      (no finite differences), so normal quality is independent of resolution.
+
+4. **Terrain function cache** — the composed terrain function is cached per seed in `src/lib.rs`. If `TerrainSettings`
+   fields ever vary independently of the seed, the cache key must be extended to include those settings, otherwise
+   different planets sharing a seed will share the wrong terrain function.
+
+5. **Scatter / instance generation** — activated only when `space_between_vertices < MIN_DISTANCE_BETWEEN_VERTICES`
+   (i.e., high-resolution chunks near the observer). Two output buffers:
+    - `instances_matrix_buffer`: objects placed with random vertical orientation (trees, rocks)
+    - `aligned_instances_matrix_buffer`: objects aligned to terrain normal (grass, flowers)
+      Each instance is a 4×4 column-major matrix. The caller pre-allocates these buffers; WASM must not exceed them.
+
+6. **Skirt generation** — appended after the base mesh when resolution allows. Skirt vertices extend downward from
+   each edge to hide LOD cracks. Skirt triangle winding must stay consistent with the base mesh winding.
+
+## Buffer Layout Reference
+
+| Buffer                          | Size (base only)            | Size (with skirt)          |
+| ------------------------------- | --------------------------- | -------------------------- |
+| positions                       | `resolution² × 3` floats    | + `4 × resolution × 3`     |
+| normals                         | `resolution² × 3` floats    | + `4 × resolution × 3`     |
+| indices                         | `(resolution-1)² × 6` u16   | + `4 × (resolution-1) × 6` |
+| instances_matrix_buffer         | varies (16 floats/instance) | same                       |
+| aligned_instances_matrix_buffer | varies (16 floats/instance) | same                       |
+
+Resize formulas must stay in sync with TypeScript side (`buildScript.ts`) and Rust tests.
+
 ## Documentation
 
 Keep `README.md`, `package.json`, `Cargo.toml`, and generated `pkg/package.json` aligned when versions, exports,

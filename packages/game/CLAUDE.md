@@ -43,6 +43,78 @@ missing translation obvious in the PR notes.
 
 Follow the key conventions and safety notes documented in root `TRANSLATIONS.md`.
 
+## CDLOD Terrain System
+
+The planetary terrain uses a Continuous Distance-Dependent LOD system. The TypeScript side lives entirely under
+`src/ts/frontend/universe/planets/telluricPlanet/terrain/`. The Rust/WASM generation engine lives in
+`packages/terrain-generation/`.
+
+### Key files
+
+| File                                  | Role                                                                                       |
+| ------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `terrain/chunks/chunkTree.ts`         | Per-face quadtree; decides which chunks to create/destroy each frame                       |
+| `terrain/chunks/chunkForgeWorkers.ts` | Dispatches `BuildTask`s to the worker pool; applies WASM results back on the main thread   |
+| `terrain/chunks/planetChunk.ts`       | Owns one Babylon.js mesh + physics aggregate + instance patches for a single LOD chunk     |
+| `terrain/chunks/workerPool.ts`        | Priority queue of workers ordered by chunk depth (shallow = higher priority)               |
+| `terrain/chunks/deleteSemaphore.ts`   | Defers disposal of old chunks until all replacement chunks are fully loaded                |
+| `terrain/workers/buildScript.ts`      | Worker entry point; calls WASM `build_chunk_vertex_data`, returns transferables            |
+| `telluricPlanet.ts`                   | Owns 6 `ChunkTree` instances (one per cube face); calls `updateLOD` each frame             |
+| `telluricPlanetMaterial.ts`           | Node Material shader: tri-planar texturing, PBR, normal maps, ocean/atmosphere integration |
+
+### Frame pipeline
+
+```
+StarSystemController.update()
+  └─ TelluricPlanet.updateLOD(observerPosition, chunkForge)
+       └─ ChunkTree[6].update()
+            └─ updateLODRecursively()       ← subdivide or merge based on angular distance
+                 └─ chunkForge.addTask()    ← enqueue BuildTask
+
+chunkForge.update()
+  ├─ available worker → postMessage(BuildData) → WASM
+  └─ onmessage(ReturnedChunkData)
+       └─ PlanetChunk.init(vertexData, instanceMatrices, assets)
+            ├─ mesh.applyVertexData()
+            ├─ PhysicsAggregate (only for high-res chunks near surface)
+            └─ InstancePatch / ThinInstancePatch (rocks, trees, grass, butterflies)
+
+DeleteSemaphore.update()
+  → dispose() old chunks only once all replacement chunks are loaded
+```
+
+### LOD depth formula
+
+```
+maxDepth = ceil(log2(planet_diameter / (MIN_VERTEX_SPACING × VERTEX_RESOLUTION)))
+targetLOD = clamp(floor(maxDepth
+  - log2(1 + angularFactor × 2^range) × 0.8
+  - log2(1 + distanceFactor × 2^range) × 0.8), minDepth, maxDepth)
+```
+
+### Instance patches
+
+Two patch types exist side-by-side in `terrain/instancePatch/`:
+
+- `InstancePatch` — Babylon.js `createInstance()`, one `InstancedMesh` per object; used for rocks and trees;
+  supports custom shaders.
+- `ThinInstancePatch` — GPU-side `thinInstanceSetBuffer()`; used for grass and butterflies; lower CPU overhead but
+  limited shader access.
+
+Both must be explicitly disposed in `PlanetChunk.dispose()`. Never let a patch outlive its parent chunk.
+
+### Fragility points
+
+- **Worker pool**: do not reuse a worker after `terminate()`. Reset and cancellation logic must have clear ownership.
+  See root `CLAUDE.md` high-risk section.
+- **DeleteSemaphore**: every subdivision/merge path that creates new chunks must register them with a semaphore before
+  the old chunks can be disposed. Missing registrations cause visible holes.
+- **ChunkForge singleton**: `StarSystemView` creates one `ChunkForgeWorkers` instance shared across all planets. Do
+  not create per-planet instances; the worker pool budget is global.
+- **Physics chunks**: a `PhysicsAggregate` is only created when
+  `chunkSideLength / (VERTEX_RESOLUTION - 1) <= MAX_DISTANCE_BETWEEN_PHYSICS_VERTICES`. Changing resolution or that
+  constant affects which chunks get collision bodies.
+
 ## Rendering And E2E
 
 Rendering, shader, scene composition, camera, UI-over-canvas, terrain, atmosphere, anomaly, station, and star map
