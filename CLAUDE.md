@@ -14,6 +14,7 @@ Before non-trivial work, read these root documents:
 - `ARCHITECTURE.md`
 - `CONTRIBUTING.md`
 - `VISION.md`
+- `TRANSLATIONS.md` (when touching player-facing text, locales, or i18n flow)
 
 Then read package-level README files only as needed for the area you touch.
 
@@ -25,6 +26,9 @@ Always reread `ARCHITECTURE.md` before changing package boundaries, `UniverseBac
 `StarSystemController`, orbital object interfaces, terrain loading, save/model relationships, or any code that changes
 how immutable universe data becomes runtime Babylon objects. Treat it as the architecture map, but verify details
 against the current source before editing because the codebase evolves faster than the diagrams.
+
+Always reread `TRANSLATIONS.md` before changing locale files, i18next keys, translated UI copy, or any player-facing
+string flow in `packages/game`.
 
 ## Workspace Map
 

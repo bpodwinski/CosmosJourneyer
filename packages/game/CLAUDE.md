@@ -6,6 +6,7 @@ This is the main Cosmos Journeyer game: Babylon.js rendering, procedural univers
 controls, missions, playgrounds, and E2E visual tests.
 
 Read the root `VISION.md` before product/gameplay/narrative work and root `ARCHITECTURE.md` before structural changes.
+Read root `TRANSLATIONS.md` before touching locale files, i18next keys, or player-facing text.
 
 ## Main Boundaries
 
@@ -39,6 +40,8 @@ Treat saves as player-owned data. Prefer migration, quarantine, and fallback beh
 
 Player-facing strings belong in i18next locale files. Update both `en-US` and `fr-FR` when practical; otherwise make the
 missing translation obvious in the PR notes.
+
+Follow the key conventions and safety notes documented in root `TRANSLATIONS.md`.
 
 ## Rendering And E2E
 
