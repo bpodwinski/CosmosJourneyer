@@ -98,7 +98,7 @@ export class MainMenu {
 
         // Create title
         const title = document.createElement("h1");
-        title.textContent = "Cosmos Journeyer";
+        title.textContent = i18n.t("common:appName");
         mainMenuDiv.appendChild(title);
 
         // Create version paragraph

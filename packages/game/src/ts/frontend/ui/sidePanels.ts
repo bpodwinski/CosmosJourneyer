@@ -5,6 +5,8 @@ import { type ISoundPlayer } from "@/frontend/audio/soundPlayer";
 
 import { assertUnreachable } from "@/utils/types";
 
+import i18n from "@/i18n";
+
 import { type MusicConductor } from "../audio/musicConductor";
 import { type INotificationManager } from "./notificationManager";
 import { AboutPanel } from "./panels/aboutPanel";
@@ -89,7 +91,7 @@ export class SidePanels {
             return;
         }
         const closeButton = document.createElement("button");
-        closeButton.innerText = "X";
+        closeButton.innerText = i18n.t("common:close");
         closeButton.className = "close-button";
         closeButton.addEventListener("click", () => {
             this.hideActivePanel();

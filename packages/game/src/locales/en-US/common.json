@@ -1,4 +1,5 @@
 {
+    "appName": "Cosmos Journeyer",
     "loading": "Loading, please wait...",
     "fullscreen": "Press F11 to enable fullscreen",
     "or": "or",
@@ -9,6 +10,7 @@
     "unknown": "Unknown",
     "cancel": "Cancel",
     "confirm": "Confirm",
+    "close": "X",
     "ok": "OK",
     "eta": "ETA",
     "infinity": "∞"

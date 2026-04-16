@@ -117,7 +117,7 @@ export class ObjectTargetCursor {
 
         this.distanceText = document.createElement("p");
         this.distanceText.classList.add("targetCursorDistance");
-        this.distanceText.textContent = "0 km";
+        this.distanceText.textContent = parseDistance(0);
 
         this.etaText = document.createElement("p");
         this.etaText.classList.add("targetCursorEta");

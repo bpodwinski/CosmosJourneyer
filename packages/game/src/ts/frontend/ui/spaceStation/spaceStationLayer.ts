@@ -172,7 +172,7 @@ export class SpaceStationLayer {
 
         const missionButtonIcon = document.createElement("img");
         missionButtonIcon.setAttribute("src", missionsIcon);
-        missionButtonIcon.setAttribute("alt", "Mission icon");
+        missionButtonIcon.setAttribute("alt", i18n.t("spaceStation:missionIconAlt"));
         this.missionsButton.appendChild(missionButtonIcon);
 
         const missionButtonTitle = document.createElement("h2");
@@ -189,7 +189,7 @@ export class SpaceStationLayer {
 
         const spaceshipButtonIcon = document.createElement("img");
         spaceshipButtonIcon.setAttribute("src", shipHangarIcon);
-        spaceshipButtonIcon.setAttribute("alt", "Spaceship icon");
+        spaceshipButtonIcon.setAttribute("alt", i18n.t("spaceStation:spaceshipIconAlt"));
         this.spaceshipHangarButton.appendChild(spaceshipButtonIcon);
 
         const spaceshipButtonTitle = document.createElement("h2");
@@ -206,7 +206,7 @@ export class SpaceStationLayer {
 
         const explorationButtonIcon = document.createElement("img");
         explorationButtonIcon.setAttribute("src", explorationIcon);
-        explorationButtonIcon.setAttribute("alt", "Exploration icon");
+        explorationButtonIcon.setAttribute("alt", i18n.t("spaceStation:explorationIconAlt"));
         this.explorationCenterButton.appendChild(explorationButtonIcon);
 
         const explorationButtonTitle = document.createElement("h2");
@@ -223,7 +223,7 @@ export class SpaceStationLayer {
 
         const tradingButtonIcon = document.createElement("img");
         tradingButtonIcon.setAttribute("src", tradingIcon);
-        tradingButtonIcon.setAttribute("alt", "Market icon");
+        tradingButtonIcon.setAttribute("alt", i18n.t("spaceStation:marketIconAlt"));
         this.tradingButton.appendChild(tradingButtonIcon);
 
         const tradingButtonTitle = document.createElement("h2");
@@ -240,7 +240,7 @@ export class SpaceStationLayer {
 
         const infoButtonIcon = document.createElement("img");
         infoButtonIcon.setAttribute("src", infoIcon);
-        infoButtonIcon.setAttribute("alt", "Info icon");
+        infoButtonIcon.setAttribute("alt", i18n.t("spaceStation:infoIconAlt"));
         this.infoButton.appendChild(infoButtonIcon);
 
         const infoButtonTitle = document.createElement("h2");
@@ -261,7 +261,7 @@ export class SpaceStationLayer {
 
         const takeOffButtonIcon = document.createElement("img");
         takeOffButtonIcon.setAttribute("src", liftOffIcon);
-        takeOffButtonIcon.setAttribute("alt", "Take-off icon");
+        takeOffButtonIcon.setAttribute("alt", i18n.t("spaceStation:takeOffIconAlt"));
         this.takeOffButton.appendChild(takeOffButtonIcon);
 
         const takeOffButtonTitle = document.createElement("h2");

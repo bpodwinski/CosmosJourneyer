@@ -65,7 +65,7 @@ export class SpaceShipLayer {
 
         this.speedIndicator = document.createElement("div");
         this.speedIndicator.id = "speed";
-        this.speedIndicator.innerText = "0 km/h";
+        this.speedIndicator.innerText = parseSpeed(0);
         this.root.appendChild(this.speedIndicator);
 
         this.targetHelper = document.createElement("div");

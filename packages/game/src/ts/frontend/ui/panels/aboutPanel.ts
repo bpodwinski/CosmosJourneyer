@@ -43,7 +43,7 @@ export class AboutPanel {
         // Signature
         const signature = document.createElement("p");
         signature.className = "signature";
-        signature.textContent = "Barthélemy Paléologue";
+        signature.textContent = i18n.t("sidePanel:signature");
         panel.appendChild(signature);
 
         // Contact email
@@ -59,11 +59,11 @@ export class AboutPanel {
         panel.appendChild(specialThanksHeader);
 
         const specialThanks = [
-            "Inès Varhol, my partner, for her unwavering love and support",
-            "Christine Lombez, my mother, for her trust and for shaping the person I am today",
-            "Victor Paléologue, my brother, for inspiring my journey into programming",
-            "Eric Lombez, my uncle, for giving me my first capable computer, paving the way for my passion for computer graphics",
-            "Martin Molli and Malo Lereste, my friends and Elite Dangerous squadmates, for their invaluable feedback and camaraderie that enriched this project.",
+            i18n.t("sidePanel:specialThanks1"),
+            i18n.t("sidePanel:specialThanks2"),
+            i18n.t("sidePanel:specialThanks3"),
+            i18n.t("sidePanel:specialThanks4"),
+            i18n.t("sidePanel:specialThanks5"),
         ];
 
         specialThanks.forEach((thanks) => {

@@ -38,7 +38,7 @@ export class LoadingScreen implements ILoadingScreen {
         this.loadingDiv.id = "babylonjsLoadingDiv";
 
         this.title = document.createElement("h1");
-        this.title.innerText = "Cosmos Journeyer";
+        this.title.innerText = i18next.t("common:appName");
         this.loadingDiv.appendChild(this.title);
 
         const progressBarContainer = document.createElement("div");

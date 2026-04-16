@@ -10,5 +10,6 @@
     "noActiveMission": "No active mission",
     "whereToGetMissions": "You can get missions at space stations.",
     "next": "Next",
-    "previous": "Previous"
+    "previous": "Previous",
+    "counter": "{{current}}/{{total}}"
 }

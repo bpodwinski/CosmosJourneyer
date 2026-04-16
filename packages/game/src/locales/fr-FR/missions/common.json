@@ -1,14 +1,15 @@
 {
-    "travelToTargetSystem": "Voyagez jusqu'à {{systemName}} ({{distance}}).",
+    "travelToTargetSystem": "Voyagez jusqu'a {{systemName}} ({{distance}}).",
     "openStarMap": "Appuyez sur {{starMapKey}} pour ouvrir la carte stellaire.",
-    "travelToNextSystem": "Poursuivez votre voyage en passant par {{systemName}} ({{distance}}). Il reste {{nbJumps}} sauts avant d'arriver à destination.",
+    "travelToNextSystem": "Poursuivez votre voyage en passant par {{systemName}} ({{distance}}). Il reste {{nbJumps}} sauts avant d'arriver a destination.",
     "getCloserToTarget": "Approchez vous de {{objectName}}",
-    "corruptedItinerary": "L'itinéraire est corrompu. Ouvrez la carte stellaire pour tracer un nouveau parcours.",
+    "corruptedItinerary": "L'itineraire est corrompu. Ouvrez la carte stellaire pour tracer un nouveau parcours.",
     "here": "ici",
     "accept": "Accepter",
-    "accepted": "Acceptée",
+    "accepted": "Acceptee",
     "noActiveMission": "Pas de mission active",
     "whereToGetMissions": "Vous pouvez obtenir des missions dans les stations spatiales.",
     "next": "Suivant",
-    "previous": "Précédent"
+    "previous": "Precedent",
+    "counter": "{{current}}/{{total}}"
 }

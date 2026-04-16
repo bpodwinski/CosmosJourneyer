@@ -224,7 +224,7 @@ export class CurrentMissionDisplay {
 
         this.missionPanelTitle.innerText = i18n.t("missions:common:noActiveMission");
         this.missionPanelDescription.innerText = i18n.t("missions:common:whereToGetMissions");
-        this.missionCounter.innerText = "0/0";
+        this.missionCounter.innerText = i18n.t("missions:common:counter", { current: 0, total: 0 });
 
         this.rootNode.classList.remove("completed");
     }
